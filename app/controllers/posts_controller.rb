@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   def index
-    binding.pry
     @posts = Post.all 
     # by default, Rails will render the index template
   end
