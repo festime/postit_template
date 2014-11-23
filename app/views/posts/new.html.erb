@@ -1,0 +1,10 @@
+<%= render 'shared/content_title', title: 'Create a new post' %>
+<%= render 'form' %>
+<!-- 
+如果沒在 render 的對象指出資料夾、只有指出 partial name 
+預設就是到目前的 template 所在目錄下找 partial 
+以這情況來說就是到 new.html.erb 所在的目錄 app/views/posts/ 
+底下找 _form.html.erb
+
+partial file name 以 _ 開頭是慣例
+-->
