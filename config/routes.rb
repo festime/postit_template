@@ -4,5 +4,7 @@ PostitTemplate::Application.routes.draw do
     resources :comments, only: [:create] # we don't have new comment, edit page
   end # we don't want to pollute the top namespace of URL
 
+
   resources :categories, only: [:new, :create, :show]
+  # get "categories/:category", to: "categories#show"
 end

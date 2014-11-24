@@ -16,9 +16,9 @@ class PostsController < ApplicationController
   end
 
   def create
-    # binding.pry
     @post = Post.new(post_params)
     @post.creator = User.first # TODO: change once we have authentication
+    binding.pry
 
     if @post.save
       flash[:notice] = "You have created a new post."
@@ -42,7 +42,7 @@ class PostsController < ApplicationController
   private 
 
     def post_params
-      params.require(:post).permit(:title, :url, :description)
+      params.require(:post).permit(:title, :url, :description, category_ids: [])
       # params.require(:post).permit! # permit everything
     end
 
