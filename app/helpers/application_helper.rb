@@ -1,9 +1,13 @@
 module ApplicationHelper
-  def fixed_url(post)
-    if post.url.start_with? 'http://'
-      post.url
+  def fixed_url(url)
+    if url.start_with? 'http://'
+      url
     else
-      "http://#{post.url}"
+      "http://#{url}"
     end
+  end
+
+  def display_datetime(dt)
+    dt.strftime("%m/%d/%Y %l:%M%P %Z") # 03/14/2013 9:09pm UTC
   end
 end
