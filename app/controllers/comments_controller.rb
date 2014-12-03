@@ -30,12 +30,14 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    vote = Vote.new(vote: params[:vote], creator: current_user, 
-                    voteable: Comment.find(params[:id]))
+    @vote = Vote.new(vote: params[:vote], creator: current_user, 
+                     voteable: Comment.find(params[:id]))
+    @vote.save
 
-    flash[:error] = "Sorry, you can only vote this comment once." if !vote.save
-
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
   private

@@ -41,11 +41,13 @@ class PostsController < ApplicationController
   end
 
   def vote
-    vote = Vote.new(vote: params[:vote], creator: current_user, voteable: @post)
+    @vote = Vote.new(vote: params[:vote], creator: current_user, voteable: @post)
+    @vote.save
 
-    flash[:error] = "Sorry, you can only vote this post once." if !vote.save
-
-    redirect_to :back
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
   private 
