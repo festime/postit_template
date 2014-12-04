@@ -16,11 +16,7 @@ class User < ActiveRecord::Base
   # 如果使用者想維持原本密碼，讓這欄位為空，就不會有任何驗證錯誤
   validates :password, presence: true, on: :create, length: {minimum: 5}
 
-  # def generate_slug
-  #   self.slug = self.username.gsub(" ", "-").downcase
-  # end
-
-  # def to_param
-  #   self.slug
-  # end
+  def self.slug_column
+    :username
+  end
 end

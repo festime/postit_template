@@ -6,36 +6,18 @@ module Sluggable
   end
 
   def generate_slug
-    if self.instance_of? Post
-      count = Post.all.select do |post| 
-        post.title.downcase == self.title.downcase
-      end.count
+    # a symbol stands for the name of slug column
+    slug_column = self.class.slug_column 
+    
+    count = self.class.all.select do |obj|
+      obj.send(slug_column).downcase == self.send(slug_column).downcase
+    end.count
+    # count = self.class.where(slug_column => self.send(slug_column).downcase).count
 
-      new_slug = self.title.gsub(" ", "-").downcase + 
-                 (count == 0 ? '' : '-' + count.to_s)
+    new_slug = self.send(slug_column).gsub(" ", "-").downcase + 
+               (count == 0 ? '' : '-' + count.to_s)
 
-      self.slug = new_slug
-
-    elsif self.instance_of? User
-      count = User.all.select do |user| 
-        user.username.downcase == self.username.downcase 
-      end.count
-
-      new_slug = self.username.gsub(" ", "-").downcase + 
-                 (count == 0 ? '' : '-' + count.to_s)
-
-      self.slug = new_slug
-
-    elsif self.instance_of? Category
-      count = Category.all.select do |cate|
-        cate.name.downcase == self.name.downcase
-      end.count
-
-      new_slug = self.name.gsub(" ", "-").downcase + 
-                 (count == 0 ? '' : '-' + count.to_s)
-
-      self.slug = new_slug
-    end
+    self.slug = new_slug
   end
 
   def to_param
