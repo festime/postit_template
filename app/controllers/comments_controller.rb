@@ -1,22 +1,11 @@
 class CommentsController < ApplicationController
-  # def create
-  #   @post = Post.find(params[:post_id])
-  #   @comment = @post.comments.build(params.require(:comment).permit(:body))
-
-  #   if @comment.save
-  #     flash[:notice] = "Your comment was added"
-  #     redirect_to post_path(@post)
-  #   else
-  #     render 'posts/show'
-  #   end
-  # end
   before_action :require_user
 
   def create
-    # binding.pry
+    binding.pry
 
     @comment = Comment.new(comment_params)
-    @comment.post_id = params[:post_id]
+    @comment.post = Post.find_by(slug: params[:post_id])
     @comment.creator = current_user
     # @comment = @post.comments.build(comment_params) 
 
@@ -35,8 +24,11 @@ class CommentsController < ApplicationController
     @vote.save
 
     respond_to do |format|
-      format.html { redirect_to :back }
-      format.js
+      format.html { redirect_to :back } # handle HTML request
+      format.js # handle javascript request
+      # by default, in action, Rails will render a template with the same name
+      # as this action. 
+      # In this case, the name of this template is called vote.
     end
   end
 

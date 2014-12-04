@@ -45,8 +45,11 @@ class PostsController < ApplicationController
     @vote.save
 
     respond_to do |format|
-      format.html { redirect_to :back }
-      format.js
+      format.html { redirect_to :back } # handle HTML request
+      format.js # handle javascript request
+      # by default, in action, Rails will render a template with the same name
+      # as this action. 
+      # In this case, the name of this template is called vote.
     end
   end
 
@@ -59,7 +62,7 @@ class PostsController < ApplicationController
 
     def set_post
       # instance variables that set up in before_action are available in actions
-      @post = Post.find(params[:id])
+      @post = Post.find_by(slug: params[:id])
     end
 
     def require_same_user
