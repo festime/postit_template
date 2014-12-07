@@ -7,7 +7,7 @@ class Category < ActiveRecord::Base
 
   validates :name, presence: true
 
-  def slug_column
+  def self.slug_column
     :name
   end
 end
